@@ -6,7 +6,11 @@ const cors = require("cors");
 require("dotenv").config(); // Load environment variables
 
 const app = express();
-const PORT = process.env.PORT || 3000; // Render ke PORT ko use karo
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+    console.log(`🚀 Server running on port ${PORT}`);
+});
 
 
 // Middleware
@@ -16,11 +20,11 @@ app.use(bodyParser.json());
 app.use(express.static("public"));
 
 // ✅ MongoDB Connection (Local)
-mongoose.connect("mongodb://127.0.0.1:27017/philoConsult", {
+mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
-.then(() => console.log("✅ Connected to Local MongoDB"))
+.then(() => console.log("✅ Connected to MongoDB Atlas"))
 .catch(err => console.error("❌ MongoDB Connection Error:", err));
 
 
