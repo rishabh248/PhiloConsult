@@ -6,7 +6,8 @@ const cors = require("cors");
 require("dotenv").config(); // Load environment variables
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000; // Render ke PORT ko use karo
+
 
 // Middleware
 app.use(cors()); // Allows cross-origin requests
@@ -16,10 +17,13 @@ app.use(express.static("public"));
 
 // ✅ MongoDB Connection (Local)
 mongoose.connect("mongodb://127.0.0.1:27017/philoConsult", {
-    serverSelectionTimeoutMS: 50000, // Prevent timeout issues
+    useNewUrlParser: true,
+    useUnifiedTopology: true
 })
-.then(() => console.log("✅ Connected to MongoDB"))
+.then(() => console.log("✅ Connected to Local MongoDB"))
 .catch(err => console.error("❌ MongoDB Connection Error:", err));
+
+
 
 
 // ✅ Define MongoDB S
