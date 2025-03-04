@@ -1,33 +1,22 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const path = require('path'); // ✅ Path module for serving static files
-const helmet = require('helmet'); // ✅ Security middleware
-const cors = require('cors'); // ✅ Fix CORS issues
+const path = require('path');
+const helmet = require('helmet');
+const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// ✅ Security Headers
+// ✅ Security Fixes
 app.use(helmet());
-app.disable('x-powered-by'); // Remove Express default header
-
-// ✅ Enable CORS
+app.disable('x-powered-by'); 
 app.use(cors());
-
-// ✅ Serve Static Files (CSS, JS, Images)
 app.use(express.static(path.join(__dirname, 'public')));
 
-// ✅ Body Parser Middleware
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-
 // ✅ MongoDB Connection
-mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
+mongoose.connect("mongodb+srv://rishabhchoukikar2006:dVzUeOUZp3FylV9r@cluster0.mongodb.net/PhiloConsult?retryWrites=true&w=majority")
 .then(() => console.log("✅ Connected to MongoDB Atlas"))
 .catch(err => console.error("❌ MongoDB Connection Error:", err));
 
@@ -53,7 +42,6 @@ app.post('/submit-query', async (req, res) => {
     try {
         const newQuery = new Query({ name, email, query });
         await newQuery.save();
-
         res.send(`<h1>Thank you, ${name}!</h1><p>Your query has been saved successfully.</p>`);
     } catch (err) {
         console.error('❌ Error:', err);
