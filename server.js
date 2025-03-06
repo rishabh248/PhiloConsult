@@ -15,10 +15,15 @@ app.disable('x-powered-by');
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// ✅ MongoDB Connection
-mongoose.connect("mongodb+srv://rishabhchoukikar2006:dVzUeOUZp3FylV9r@cluster0.mongodb.net/PhiloConsult?retryWrites=true&w=majority")
+// ✅ MongoDB Connection (Final Working URI)
+const mongoURI = "mongodb+srv://rishabhchoukikar2006:dVzUeOUZp3FylV9r@cluster0.mongodb.net/PhiloConsult?retryWrites=true&w=majority";
+
+mongoose.connect(mongoURI, { serverSelectionTimeoutMS: 5000 }) // ✅ Timeout fix added
 .then(() => console.log("✅ Connected to MongoDB Atlas"))
-.catch(err => console.error("❌ MongoDB Connection Error:", err));
+.catch(err => {
+    console.error("❌ MongoDB Connection Error:", err);
+    process.exit(1); // ✅ Server Crash Hone Se Bachaane Ke Liye
+});
 
 // ✅ Define Schema & Model
 const querySchema = new mongoose.Schema({
@@ -35,17 +40,24 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// ✅ Handle Form Submission
+// ✅ Handle Form Submission (Fix)
 app.post('/submit-query', async (req, res) => {
-    const { name, email, query } = req.body;
-
     try {
+        const { name, email, query } = req.body;
+        
+        // ✅ Ensure all fields are present
+        if (!name || !email || !query) {
+            return res.status(400).send("❌ All fields are required.");
+        }
+
+        // ✅ Save to MongoDB
         const newQuery = new Query({ name, email, query });
         await newQuery.save();
+
         res.send(`<h1>Thank you, ${name}!</h1><p>Your query has been saved successfully.</p>`);
     } catch (err) {
-        console.error('❌ Error:', err);
-        res.status(500).send('An error occurred while processing your query.');
+        console.error("❌ Error Saving Query:", err);
+        res.status(500).send("❌ Internal Server Error. Please try again later.");
     }
 });
 
