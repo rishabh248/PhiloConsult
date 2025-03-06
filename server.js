@@ -18,7 +18,8 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // ✅ MongoDB Connection (Non-SRV Fix)
-const mongoURI = "mongodb+srv://rishabhchoukikar2006:TSqnXBZacqu5MW3Q@cluster0.mongodb.net/PhiloConsult?retryWrites=true&w=majority";
+const mongoURI = "mongodb://rishabhchoukikar2006:TSqnXBZacqu5MW3Q@cluster0-shard-00-00.mongodb.net:27017,cluster0-shard-00-01.mongodb.net:27017,cluster0-shard-00-02.mongodb.net:27017/PhiloConsult?authSource=admin&replicaSet=atlas-xxxxxx-shard-0&ssl=true";
+
 
 
 mongoose.connect(mongoURI, { serverSelectionTimeoutMS: 5000 })
