@@ -3,27 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PhiloConsult - Your Query Solution</title>
+    <title>PhiloConsult</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <h1>Welcome to PhiloConsult</h1>
-        <p>Your trusted consulting platform</p>
+        <nav>
+            <div class="logo">PhiloConsult</div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <section class="form-container">
-        <h2>Submit Your Query</h2>
-        <form action="/submit-query" method="POST">
-            <input type="text" id="name" name="name" placeholder="Enter your full name" required autocomplete="on">
-            <input type="email" id="email" name="email" placeholder="Enter your email address" required autocomplete="on">
-            <textarea id="query" name="query" rows="5" placeholder="Type your query here..." required autocomplete="on"></textarea>
-            <button type="submit">Submit Query</button>
-        </form>
+    <section class="hero">
+        <h1>Consulting & Philosophy Collective</h1>
+        <p>Philosophy in Practice, Consulting for Progress</p>
     </section>
 
+    <div class="container">
+        <h2>How Can We Help You?</h2>
+        <ul class="query-types">
+            <li>🧠 Life Queries</li>
+            <li>📚 Academic Queries</li>
+            <li>🏫 College Info</li>
+            <li>💼 Career Guidance</li>
+        </ul>
+
+        <h2>Submit Your Query</h2>
+        <form action="/submit-query" method="POST">
+            <div class="form-group">
+                <label for="name">Your Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Your Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+            </div>
+
+            <div class="form-group">
+                <label for="query">Your Query</label>
+                <textarea id="query" name="query" rows="5" placeholder="Type your query here..." required></textarea>
+            </div>
+
+            <div class="form-group">
+                <button type="submit">Submit Query</button>
+            </div>
+        </form>
+        <p class="note">You will get a reply on your email.</p>
+    </div>
+
     <footer>
-        <p>&copy; 2025 PhiloConsult. All rights reserved.</p>
+        <p>&copy; 2024 PhiloConsult. All Rights Reserved.</p>
     </footer>
 </body>
 </html>

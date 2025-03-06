@@ -1,66 +1,69 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-const path = require('path');
-const helmet = require('helmet');
-const cors = require('cors');
-require('dotenv').config();
+require("dotenv").config();  // Load environment variables
+const express = require("express");
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+const nodemailer = require("nodemailer");
+const cors = require("cors");
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 10000;
 
-// ✅ Security Fixes
-app.use(helmet());
-app.disable('x-powered-by');
+// Middleware
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static("public"));  // Ensure CSS, JS, and images work properly
 
-// ✅ MongoDB Connection (Non-SRV Fix)
-const mongoURI = "mongodb+srv://rishabh_db:RishabhMdb2025!@cluster0.h44u7.mongodb.net/PhiloConsult?retryWrites=true&w=majority&appName=Cluster0";
-
-
-
-
-mongoose.connect(mongoURI, { serverSelectionTimeoutMS: 5000 })
+// ✅ MongoDB Connection
+mongoose.connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
 .then(() => console.log("✅ Connected to MongoDB Atlas"))
-.catch(err => {
-    console.error("❌ MongoDB Connection Error:", err);
-    process.exit(1);
-});
+.catch(err => console.error("❌ MongoDB Connection Error:", err));
 
 // ✅ Define Schema & Model
-const querySchema = new mongoose.Schema({
-    name: { type: String, required: true },
-    email: { type: String, required: true },
-    query: { type: String, required: true },
-    date: { type: Date, default: Date.now },
+const QuerySchema = new mongoose.Schema({
+    name: String,
+    email: String,
+    subject: String,
+    message: String,
+});
+const Query = mongoose.model("Query", QuerySchema);
+
+// ✅ Nodemailer Configuration
+const transporter = nodemailer.createTransport({
+    service: "Outlook",  // Use Outlook SMTP
+    auth: {
+        user: process.env.EMAIL_USER,       // Your Outlook email
+        pass: process.env.EMAIL_PASSWORD,   // App password (not regular password)
+    },
 });
 
-const Query = mongoose.model('Query', querySchema);
+// ✅ Form Handling & Email Sending
+app.post("/submit", async (req, res) => {
+    const { name, email, subject, message } = req.body;
 
-// ✅ Serve HTML Page
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
-
-// ✅ Handle Form Submission
-app.post('/submit-query', async (req, res) => {
     try {
-        const { name, email, query } = req.body;
-
-        if (!name || !email || !query) {
-            return res.status(400).send("❌ All fields are required.");
-        }
-
-        const newQuery = new Query({ name, email, query });
+        // Save query in database
+        const newQuery = new Query({ name, email, subject, message });
         await newQuery.save();
 
-        res.send(`<h1>Thank you, ${name}!</h1><p>Your query has been saved successfully.</p>`);
-    } catch (err) {
-        console.error("❌ Error Saving Query:", err);
-        res.status(500).send("❌ Internal Server Error. Please try again later.");
+        // Send email notification
+        const mailOptions = {
+            from: process.env.EMAIL_USER,
+            to: process.env.EMAIL_USER, // You will receive the queries here
+            subject: `New Query from ${name}`,
+            text: `Name: ${name}\nEmail: ${email}\nSubject: ${subject}\nMessage: ${message}`,
+        };
+
+        await transporter.sendMail(mailOptions);
+
+        // Respond to user
+        res.status(200).send("Query submitted successfully! You will get a reply on your email.");
+    } catch (error) {
+        console.error("❌ Error submitting query:", error);
+        res.status(500).send("Something went wrong. Please try again.");
     }
 });
 
