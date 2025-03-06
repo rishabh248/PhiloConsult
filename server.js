@@ -35,18 +35,15 @@ const Query = mongoose.model("Query", querySchema);
 // ✅ Outlook SMTP Configuration
 
 
+
 const transporter = nodemailer.createTransport({
-    host: "smtp.office365.com",
-    port: 587,
-    secure: false, // TLS is required
+    service: "hotmail",  // Use "hotmail" for Outlook
     auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
-    },
-    tls: {
-        rejectUnauthorized: false,  // Prevents certificate verification issues
-    },
+    }
 });
+
 
 
 // ✅ Routes
