@@ -33,7 +33,7 @@ const querySchema = new mongoose.Schema({
 const Query = mongoose.model("Query", querySchema);
 
 // ✅ Outlook SMTP Configuration
-const nodemailer = require("nodemailer");
+
 
 const transporter = nodemailer.createTransport({
     host: "smtp.office365.com",
