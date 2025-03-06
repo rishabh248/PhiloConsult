@@ -32,17 +32,14 @@ const querySchema = new mongoose.Schema({
 
 const Query = mongoose.model("Query", querySchema);
 
-// ✅ Outlook SMTP Configuration
-
-
-
 const transporter = nodemailer.createTransport({
-    service: "hotmail",  // Use "hotmail" for Outlook
+    service: "gmail",
     auth: {
         user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
+        pass: process.env.EMAIL_PASS
     }
 });
+
 
 
 
