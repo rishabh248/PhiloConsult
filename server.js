@@ -16,14 +16,16 @@ app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // ✅ MongoDB Connection (Final Working URI)
-const mongoURI = "mongodb+srv://rishabhchoukikar2006:dVzUeOUZp3FylV9r@cluster0.mongodb.net/PhiloConsult?retryWrites=true&w=majority";
+const mongoose = require('mongoose');
 
-mongoose.connect(mongoURI, { serverSelectionTimeoutMS: 5000 }) // ✅ Timeout fix added
+const mongoURI = "mongodb://rishabhchoukikar2006:dVzUeOUZp3FylV9r@cluster0-shard-00-00.mongodb.net:27017,cluster0-shard-00-01.mongodb.net:27017,cluster0-shard-00-02.mongodb.net:27017/PhiloConsult?authSource=admin&replicaSet=atlas-xxxxxx-shard-0&ssl=true";
+
+mongoose.connect(mongoURI, { serverSelectionTimeoutMS: 5000 })
 .then(() => console.log("✅ Connected to MongoDB Atlas"))
 .catch(err => {
     console.error("❌ MongoDB Connection Error:", err);
-    process.exit(1); // ✅ Server Crash Hone Se Bachaane Ke Liye
-});
+    process
+
 
 // ✅ Define Schema & Model
 const querySchema = new mongoose.Schema({
