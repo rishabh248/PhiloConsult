@@ -11,21 +11,21 @@ const PORT = process.env.PORT || 3000;
 
 // ✅ Security Fixes
 app.use(helmet());
-app.disable('x-powered-by'); 
+app.disable('x-powered-by');
 app.use(cors());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// ✅ MongoDB Connection (Final Working URI)
-const mongoose = require('mongoose');
-
+// ✅ MongoDB Connection (Non-SRV Fix)
 const mongoURI = "mongodb://rishabhchoukikar2006:dVzUeOUZp3FylV9r@cluster0-shard-00-00.mongodb.net:27017,cluster0-shard-00-01.mongodb.net:27017,cluster0-shard-00-02.mongodb.net:27017/PhiloConsult?authSource=admin&replicaSet=atlas-xxxxxx-shard-0&ssl=true";
 
 mongoose.connect(mongoURI, { serverSelectionTimeoutMS: 5000 })
 .then(() => console.log("✅ Connected to MongoDB Atlas"))
 .catch(err => {
     console.error("❌ MongoDB Connection Error:", err);
-    process
-
+    process.exit(1);
+});
 
 // ✅ Define Schema & Model
 const querySchema = new mongoose.Schema({
@@ -42,17 +42,15 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// ✅ Handle Form Submission (Fix)
+// ✅ Handle Form Submission
 app.post('/submit-query', async (req, res) => {
     try {
         const { name, email, query } = req.body;
-        
-        // ✅ Ensure all fields are present
+
         if (!name || !email || !query) {
             return res.status(400).send("❌ All fields are required.");
         }
 
-        // ✅ Save to MongoDB
         const newQuery = new Query({ name, email, query });
         await newQuery.save();
 
