@@ -33,18 +33,21 @@ const querySchema = new mongoose.Schema({
 const Query = mongoose.model("Query", querySchema);
 
 // ✅ Outlook SMTP Configuration
+const nodemailer = require("nodemailer");
+
 const transporter = nodemailer.createTransport({
-  host: "smtp.office365.com",
-  port: 587,
-  secure: false, // Use STARTTLS
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-  tls: {
-    rejectUnauthorized: false, // Prevents certificate issues
-  },
+    host: "smtp.office365.com",
+    port: 587,
+    secure: false, // TLS is required
+    auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+    },
+    tls: {
+        rejectUnauthorized: false,  // Prevents certificate verification issues
+    },
 });
+
 
 // ✅ Routes
 app.get("/", (req, res) => {
