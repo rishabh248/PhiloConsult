@@ -1,91 +1,75 @@
-* {
+/* General Styling */
+body {
+    font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     color: #333;
-    line-height: 1.6;
 }
 
-header {
-    background: #000;
-    color: #fff;
-    padding: 15px 20px;
-}
-
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-nav ul {
-    list-style: none;
-    display: flex;
-}
-
-nav ul li {
-    margin: 0 15px;
-}
-
-nav a {
-    color: white;
-    text-decoration: none;
-    font-size: 1rem;
-}
-
-.hero {
-    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('background.jpg') center/cover;
+/* Header */
+.about-header {
+    background-color: #2c3e50;
     color: white;
     text-align: center;
-    padding: 100px 20px;
+    padding: 20px;
+    font-size: 28px;
 }
 
-.container {
-    max-width: 800px;
-    margin: 20px auto;
+/* About Page Container */
+.about-container {
+    max-width: 900px;
+    margin: 30px auto;
     background: white;
     padding: 20px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-}
-
-.container h2 {
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-    color: #007BFF;
 }
 
-.query-types {
-    list-style: none;
-    display: flex;
-    justify-content: space-around;
-    padding: 10px;
+/* Logo */
+.logo {
+    max-width: 150px;
+    margin-bottom: 20px;
 }
 
-.form-group {
+/* Content */
+.about-content {
+    text-align: left;
+}
+
+.about-content h2 {
+    color: #2c3e50;
+    border-bottom: 2px solid #2c3e50;
+    padding-bottom: 5px;
     margin-bottom: 15px;
 }
 
-input, textarea, button {
-    width: 100%;
+.about-content p {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.about-content ul {
+    list-style: none;
+    padding: 0;
+}
+
+.about-content ul li {
+    font-size: 16px;
+    background: #ecf0f1;
     padding: 10px;
-    font-size: 1rem;
+    margin: 5px 0;
     border-radius: 5px;
 }
 
-button {
-    background: #007BFF;
-    color: white;
-    cursor: pointer;
-}
-
-footer {
-    background: #000;
-    color: white;
+/* Footer */
+.about-footer {
     text-align: center;
+    background-color: #2c3e50;
+    color: white;
     padding: 10px;
+    margin-top: 20px;
+    font-size: 14px;
 }
