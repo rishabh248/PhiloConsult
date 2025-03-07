@@ -6,13 +6,15 @@ require("dotenv").config();
 
 const app = express();
 const PORT = process.env.PORT || 10000;
+const path = require("path");
 
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "public")));
+
 
 // ✅ MongoDB Connection
 mongoose
