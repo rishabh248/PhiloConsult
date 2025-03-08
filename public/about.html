@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PhiloConsult Admin Panel</title>
+    <title>About PhiloConsult</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -11,9 +11,6 @@
             text-align: center;
             margin: 0;
             padding: 20px;
-        }
-        h2 {
-            color: #333;
         }
         .container {
             max-width: 800px;
@@ -23,85 +20,22 @@
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         }
-        .query-card {
-            background: #fff;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 8px;
-            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
-            text-align: left;
+        h1 {
+            color: #333;
         }
-        textarea {
-            width: 100%;
-            height: 60px;
-            margin-top: 10px;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            resize: none;
-        }
-        button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            margin-top: 10px;
-            cursor: pointer;
-            border-radius: 5px;
-            font-size: 14px;
-        }
-        button:hover {
-            background-color: #0056b3;
+        p {
+            font-size: 18px;
+            color: #555;
+            line-height: 1.6;
         }
     </style>
-    <script>
-        async function fetchQueries() {
-            let response = await fetch('https://your-app-name.onrender.com/get-queries', { cache: "no-store" });
-            let queries = await response.json();
-            let queryList = document.getElementById("queryList");
-            queryList.innerHTML = "";
-            queries.forEach(q => {
-                queryList.innerHTML += `
-                    <div class="query-card">
-                        <b>${q.name}</b> (${q.email}) <br>
-                        <i>${q.query}</i> <br>
-                        <textarea id="reply-${q._id}" placeholder="Type your reply here..."></textarea>
-                        <button onclick="replyEmail('${q.email}', '${q.query}', '${q._id}')">Send Reply</button>
-                    </div>`;
-            });
-        }
-
-        async function replyEmail(email, query, id) {
-            let reply = document.getElementById(`reply-${id}`).value;
-            if (!reply.trim()) {
-                alert("Reply cannot be empty!");
-                return;
-            }
-
-            let response = await fetch('https://your-app-name.onrender.com/send-reply', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, query, reply })
-            });
-
-            if (response.ok) {
-                alert("Reply Sent!");
-                fetchQueries(); // Refresh queries after reply
-            } else {
-                alert("Error sending reply.");
-            }
-        }
-
-        // ✅ Auto-refresh queries every 5 seconds
-        setInterval(fetchQueries, 5000);
-
-        window.onload = fetchQueries;
-    </script>
 </head>
 <body>
-    <h2>PhiloConsult Admin Panel</h2>
     <div class="container">
-        <div id="queryList"></div>
+        <h1>About PhiloConsult</h1>
+        <p>Welcome to <b>PhiloConsult</b>, your trusted platform for insightful discussions, expert guidance, and personalized query solutions. Our goal is to provide valuable advice on various topics related to philosophy, human behavior, and problem-solving.</p>
+        <p>At PhiloConsult, we believe in fostering intellectual curiosity and helping individuals navigate life's challenges with well-thought-out perspectives.</p>
+        <p>Feel free to reach out with your queries, and our team will ensure you get a thoughtful response.</p>
     </div>
 </body>
 </html>
