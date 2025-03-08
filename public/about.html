@@ -3,53 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us | PhiloConsult</title>
-    <img src="images/logo.png" alt="PhiloConsult Logo" width="150">
+    <title>PhiloConsult Admin Panel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        h2 {
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .query-card {
+            background: #fff;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+        textarea {
+            width: 100%;
+            height: 60px;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            resize: none;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <script>
+        async function fetchQueries() {
+            let response = await fetch('http://localhost:10000/get-queries');
+            let queries = await response.json();
+            let queryList = document.getElementById("queryList");
+            queryList.innerHTML = "";
+            queries.forEach(q => {
+                queryList.innerHTML += `
+                    <div class="query-card">
+                        <b>${q.name}</b> (${q.email}) <br>
+                        <i>${q.query}</i> <br>
+                        <textarea id="reply-${q._id}" placeholder="Type your reply here..."></textarea>
+                        <button onclick="replyEmail('${q.email}', '${q.query}', '${q._id}')">Send Reply</button>
+                    </div>`;
+            });
+        }
 
+        async function replyEmail(email, query, id) {
+            let reply = document.getElementById(`reply-${id}`).value;
+            if (!reply.trim()) {
+                alert("Reply cannot be empty!");
+                return;
+            }
 
-    <link rel="stylesheet" href="/styles.css">
+            let response = await fetch('http://localhost:10000/send-reply', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, query, reply })
+            });
 
-    
+            if (response.ok) {
+                alert("Reply Sent!");
+                fetchQueries(); // Refresh queries after reply
+            } else {
+                alert("Error sending reply.");
+            }
+        }
 
+        window.onload = fetchQueries;
+    </script>
 </head>
 <body>
-    <header class="about-header">
-        <h1>About PhiloConsult</h1>
-    </header>
-
-    <section class="about-container">
-        <img src="logo.png" alt="PhiloConsult Logo" class="logo">
-
-        <div class="about-content">
-            <h2>Who We Are</h2>
-            <p>
-                PhiloConsult is founded by **Rishabh Choukikar**, a student at **IIITDM Jabalpur** with a deep passion for **human behavior, philosophy, and career guidance**.  
-                With a strong analytical mindset and keen observational skills, Rishabh has been dedicated to helping people navigate life's challenges with thoughtful advice.
-            </p>
-
-            <h2>Our Mission</h2>
-            <p>
-                At **PhiloConsult**, we believe in guiding individuals through their **personal, academic, and professional** concerns with a logical and structured approach.
-                Whether it's about **life queries, academic doubts, college insights, or career guidance**, we are here to provide well-thought-out solutions.
-            </p>
-
-            <h2>What We Do</h2>
-            <ul>
-                <li>📚 **Academic Assistance** – Get expert insights on subjects and assignments.</li>
-                <li>🎓 **College Guidance** – Confused about college choices? We’ve got you covered.</li>
-                <li>💼 **Career Advice** – Need clarity on career options? We provide direction.</li>
-                <li>🧠 **Life Queries** – Understanding human nature and psychology.</li>
-            </ul>
-
-            <h2>Meet the Team</h2>
-            <p>
-                Your queries are personally answered by **Rishabh Choukikar** and the **PhiloConsult Team**, ensuring a personalized and insightful experience.
-            </p>
-        </div>
-    </section>
-
-    <footer class="about-footer">
-        <p>© 2025 PhiloConsult. All Rights Reserved.</p>
-    </footer>
+    <h2>PhiloConsult Admin Panel</h2>
+    <div class="container">
+        <div id="queryList"></div>
+    </div>
 </body>
 </html>

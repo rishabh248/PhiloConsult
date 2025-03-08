@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PhiloConsult Admin Panel</title>
+    <script>
+        async function fetchQueries() {
+            let response = await fetch('http://localhost:3000/get-queries');
+            let queries = await response.json();
+            let queryList = document.getElementById("queryList");
+            queryList.innerHTML = "";
+            queries.forEach(q => {
+                queryList.innerHTML += `
+                    <li>
+                        <b>${q.name}</b> (${q.email}) <br>
+                        <i>${q.query}</i> <br>
+                        <textarea id="reply-${q._id}" placeholder="Type your reply here..."></textarea>
+                        <button onclick="replyEmail('${q.email}', '${q.query}', '${q._id}')">Send Reply</button>
+                        <hr>
+                    </li>`;
+            });
+        }
+
+        async function replyEmail(email, query, id) {
+            let reply = document.getElementById(`reply-${id}`).value;
+            if (!reply.trim()) {
+                alert("Reply cannot be empty!");
+                return;
+            }
+
+            let response = await fetch('http://localhost:3000/send-reply', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, query, reply })
+            });
+
+            if (response.ok) {
+                alert("Reply Sent!");
+            } else {
+                alert("Error sending reply.");
+            }
+        }
+
+        window.onload = fetchQueries;
+    </script>
+</head>
+<body>
+    <h2>PhiloConsult Admin Panel</h2>
+    <ul id="queryList"></ul>
+</body>
+</html>
