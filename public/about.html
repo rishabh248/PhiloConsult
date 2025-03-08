@@ -56,7 +56,7 @@
     </style>
     <script>
         async function fetchQueries() {
-            let response = await fetch('http://localhost:10000/get-queries');
+            let response = await fetch('https://your-app-name.onrender.com/get-queries', { cache: "no-store" });
             let queries = await response.json();
             let queryList = document.getElementById("queryList");
             queryList.innerHTML = "";
@@ -78,7 +78,7 @@
                 return;
             }
 
-            let response = await fetch('http://localhost:10000/send-reply', {
+            let response = await fetch('https://your-app-name.onrender.com/send-reply', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, query, reply })
@@ -91,6 +91,9 @@
                 alert("Error sending reply.");
             }
         }
+
+        // ✅ Auto-refresh queries every 5 seconds
+        setInterval(fetchQueries, 5000);
 
         window.onload = fetchQueries;
     </script>

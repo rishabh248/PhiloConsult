@@ -76,13 +76,14 @@ app.post("/submit-query", async (req, res) => {
 // ✅ Get All Queries (Admin Panel)
 app.get("/get-queries", async (req, res) => {
   try {
-    const queries = await Query.find();
-    res.json(queries);
+      const queries = await Query.find().sort({ date: -1 }); // ✅ Latest queries first
+      res.json(queries);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Error fetching queries" });
+      console.error(error);
+      res.status(500).json({ message: "Error fetching queries" });
   }
 });
+
 
 // ✅ Send Manual Email Reply (Admin)
 app.post("/send-reply", async (req, res) => {
