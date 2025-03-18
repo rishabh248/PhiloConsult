@@ -4,45 +4,86 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PhiloConsult</title>
-    <img src="images/logo.png" alt="PhiloConsult Logo" width="150">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+    rel="stylesheet"
+/>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="loco.css">
 
-
-    <link rel="stylesheet" href="/styles.css">
-
-
-
+    
+    
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo">PhiloConsult</div>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+ <div id="minicircle"></div>   
+ <div id="main">
+    
+    <div id="hero">
+        <div id="nav">
+          <a href="#">PhiloConsult</a>  
+          <h2 id="menu-toggle">MENU+</h2>
+        </div>
+        
+        <div id="menu-overlay">
+            <div class="menu-links">
+                <a href="index.html">Home</a>
+                <a href="index.html">Services</a>
+                <a href="index.html">Newsletter</a>
+                <a href="about.html">About</a>
+            </div>
+        </div>
+             <div id="heading">
+                <div class="bounding">
+                   <h1 class="boundingelem">Consulting </h1> 
+                </div>
+              
+                  <div class="blocktext">
+                    <div class="bounding">
+                        <h1 class="boundingelem">& Philosophy  </h1> 
+                    </div>
+                    <div class="bounding">
+                        <h1 class="boundingelem1">Collective </h1> 
+                    </div> 
+                  <div class="bounding"> 
+                    <h5 class="boundingelem">Based in India </h5>
+                  </div>
+                </div>
+              </div>
+             </div>
+             <div class="bounding"> 
+              <div class="chhotiheadings">
+                <h5 class="boundingelem">personalise query solutions </h5>
+                <h5 class="boundingelem">live now</h5>
+              </div>
+             </div>
+                <div id="herofooter">
+                     <a href="#">Genuine Answers <i class="ri-arrow-right-up-line"></i></a>
+                     <a href="#">Live Now <i class="ri-arrow-right-up-line"></i></a>
+                      <div id="iconset">
+                            <div class="circle " ><i class="ri-arrow-down-line"></i></div>
+                           <div class="circle"><i class="ri-arrow-down-line"></i></div>
+                      </div>
+                </div>
+            
+         
+        
 
-    <section class="hero">
-        <h1>Consulting & Philosophy Collective</h1>
-        <p>Philosophy in Practice, Consulting for Progress</p>
-    </section>
+    
+        
+     <div id="hero2">
+            <h2 id="zero"><i class="ri-arrow-right-line"></i>How Can We Help You?</h2>
+            <div id="one">
+                <h2>Life queries</h2>
+            </div>
+            <div id="sec"><h2 id="2"> Academic Queries</h2></div>
+            <div id="thir"><h2 id="3">College Info</h2></div>
+            <div id="for"><h2 id="4">career guidance</h2></div>
+        </div>
 
-    <div class="container">
-        <h2>How Can We Help You?</h2>
-        <ul class="query-types">
-            <li>🧠 Life Queries</li>
-            <li>📚 Academic Queries</li>
-            <li>🏫 College Info</li>
-            <li>💼 Career Guidance</li>
-        </ul>
-
-        <h2>Submit Your Query</h2>
+        <div id="container">
+        <h2 id="fiv">Submit Your Query</h2>
         <form action="/submit-query" method="POST">
+
             <div class="form-group">
                 <label for="name">Your Name</label>
                 <input type="text" id="name" name="name" placeholder="Enter your full name" required>
@@ -63,10 +104,32 @@
             </div>
         </form>
         <p class="note">You will get a reply on your email.</p>
-    </div>
+    
 
+     
+    </div>
     <footer>
-        <p>&copy; 2024 PhiloConsult. All Rights Reserved.</p>
+        <p>© 2025 PhiloConsult. All Rights Reserved.</p>
     </footer>
+    
+    
+</div> 
+   
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"
+   integrity="sha512-cOH8ndwGgPo+K7pTvMrqYbmI8u8k6Sho3js0gOqVWTmQMlLIi6TbqGWRTpf1ga8ci9H3iPsvDLr4X7xwhC/+DQ=="
+   crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.min.js"></script>
+<script src="script.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Toggle menu
+        document.getElementById("menu-toggle").addEventListener("click", function() {
+            document.getElementById("menu-overlay").classList.add("active");
+        });
+        document.getElementById("close-menu").addEventListener("click", function() {
+            document.getElementById("menu-overlay").classList.remove("active");
+        });
+    });
+</script>
 </body>
 </html>

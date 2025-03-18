@@ -7,28 +7,30 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-color: #121212; /* Black Theme */
+            color: white;
             text-align: center;
             margin: 0;
             padding: 20px;
         }
         h2 {
-            color: #333;
+            color: #ffffff;
         }
         .container {
             max-width: 800px;
             margin: auto;
-            background: white;
+            background: #1e1e1e; /* Dark Grey */
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
         }
         .query-card {
-            background: #fff;
+            background: #252525;
+            color: white;
             padding: 15px;
             margin: 15px 0;
             border-radius: 8px;
-            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.1);
             text-align: left;
         }
         textarea {
@@ -37,7 +39,9 @@
             margin-top: 10px;
             padding: 10px;
             border-radius: 5px;
-            border: 1px solid #ccc;
+            border: 1px solid #333;
+            background: #1e1e1e;
+            color: white;
             resize: none;
         }
         button {
@@ -54,7 +58,6 @@
             background-color: #0056b3;
         }
     </style>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <script>
         let autoRefresh;
         
@@ -66,7 +69,7 @@
                 queryList.innerHTML = "";
 
                 if (queries.length === 0) {
-                    queryList.innerHTML = "<p>No queries found.</p>"; // ✅ Message if no queries
+                    queryList.innerHTML = "<p>No queries found.</p>";
                     return;
                 }
 
@@ -100,7 +103,7 @@
 
             if (response.ok) {
                 alert("Reply Sent!");
-                fetchQueries(); // Refresh queries after reply
+                fetchQueries();
             } else {
                 alert("Error sending reply.");
             }

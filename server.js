@@ -52,26 +52,27 @@ app.get("/", (req, res) => {
 
 // ✅ Submit Query
 app.post("/submit-query", async (req, res) => {
+  console.log("Received Query:", req.body); // ✅ Check request received
   const { name, email, query } = req.body;
   try {
-    const newQuery = new Query({ name, email, query });
-    await newQuery.save();
+      const newQuery = new Query({ name, email, query });
+      await newQuery.save();
 
-    // ✅ Send Email Notification
-    const mailOptions = {
-      from: process.env.EMAIL_USER,
-      to: email,
-      subject: `Thank you for your query, ${name}!`,
-      text: `Hello ${name},\n\nWe received your query:\n"${query}"\n\nYou will get a reply on your email soon.\n\nBest Regards,\nPhiloConsult Team`,
-    };
+      const mailOptions = {
+          from: process.env.EMAIL_USER,
+          to: email,
+          subject: `Thank you for your query, ${name}!`,
+          text: `Hello ${name},\n\nWe received your query:\n"${query}"\n\nYou will get a reply soon.\n\nBest Regards,\nPhiloConsult Team`,
+      };
 
-    await transporter.sendMail(mailOptions);
-    res.status(200).json({ message: "Query submitted successfully!" });
+      await transporter.sendMail(mailOptions);
+      res.status(200).json({ message: "Query submitted successfully!" });
   } catch (err) {
-    console.error("❌ Error:", err);
-    res.status(500).json({ message: "An error occurred while processing your query." });
+      console.error("❌ Error:", err);
+      res.status(500).json({ message: "An error occurred." });
   }
 });
+
 
 // ✅ Get All Queries (Admin Panel)
 app.get("/get-queries", async (req, res) => {
