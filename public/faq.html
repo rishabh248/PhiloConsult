@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhiloConsult FAQs</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #121212, #1a1a1a);
+            color: white;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 22px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .swiper {
+            width: 90%;
+            height: 250px;
+            margin: auto;
+        }
+
+        .swiper-slide {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-size: 16px;
+            backdrop-filter: blur(8px);
+            box-shadow: 0px 8px 20px rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .swiper-slide:hover {
+            transform: scale(1.03);
+        }
+
+        .faq-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #FFD700;
+        }
+
+        .faq-item {
+            font-size: 15px;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .swiper-button-next, .swiper-button-prev {
+            color: #FFD700;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>💡 Quick FAQs</h2>
+    
+    <div class="swiper">
+        <div class="swiper-wrapper">
+            <!-- 🔥 Tile 1: Admissions & Academics -->
+            <div class="swiper-slide">
+                <div class="faq-title">🏫 Admissions & Academics</div>
+                <div class="faq-item">❓ Is IIITDM Jabalpur under JoSAA or CSAB?<br>➡ Yes, admission is via JoSAA and CSAB.</div>
+                <div class="faq-item">❓ What is the required JEE Mains percentile?<br>➡ Varies yearly. Check JoSAA cutoffs.</div>
+            </div>
+
+            <!-- 🔥 Tile 2: Branch Change & Academic Options -->
+            <div class="swiper-slide">
+                <div class="faq-title">📖 Academic Options</div>
+                <div class="faq-item">❓ Is there a branch change option in 2nd year?<br>➡ Yes, based on CGPA and seat availability.</div>
+                <div class="faq-item">❓ How is the faculty quality at IIITDMJ?<br>➡ Mostly good, varies by department.</div>
+            </div>
+
+            <!-- 🔥 Tile 3: Campus Life & Facilities -->
+            <div class="swiper-slide">
+                <div class="faq-title">🏠 Campus Life & Facilities</div>
+                <div class="faq-item">❓ How is hostel life at IIITDMJ?<br>➡ First-years get hostels, seniors have single/double rooms.</div>
+                <div class="faq-item">❓ Does IIITDMJ have a swimming pool?<br>➡ No, but gyms & sports courts are available.</div>
+            </div>
+
+            <!-- 🔥 Tile 4: Placements & Career -->
+            <div class="swiper-slide">
+                <div class="faq-title">💼 Placements & Career</div>
+                <div class="faq-item">❓ What is the highest package at IIITDMJ?<br>➡ Varies yearly, check placement reports.</div>
+                <div class="faq-item">❓ Do companies hire from non-CSE branches?<br>➡ Yes, but coding knowledge helps.</div>
+            </div>
+
+            <!-- 🔥 Tile 5: Fests & Clubs -->
+            <div class="swiper-slide">
+                <div class="faq-title">🎉 Fests & Clubs</div>
+                <div class="faq-item">❓ Which are the biggest fests in IIITDMJ?<br>➡ Taarangana, Abhikalpan, and Gusto.</div>
+                <div class="faq-item">❓ Are there hackathons or tech events?<br>➡ Yes, frequent coding contests & tech fests.</div>
+            </div>
+        </div>
+
+        <!-- Navigation arrows -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+    </div>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script>
+        var swiper = new Swiper(".swiper", {
+            slidesPerView: 1.2,
+            spaceBetween: 20,
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+        });
+    </script>
+
+</body>
+</html>
